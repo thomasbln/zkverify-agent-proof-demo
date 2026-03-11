@@ -1,0 +1,27 @@
+{
+  "name": "zkverify-awareo-demo",
+  "version": "1.0.0",
+  "description": "zkVerify integration demo — Groth16 Proof of Liveness with Circom, zkverifyjs, and on-chain verification on Sepolia",
+  "author": "awareo UG",
+  "license": "MIT",
+  "scripts": {
+    "compute-hash": "node scripts/zkverify/compute-hash.js",
+    "zkverify:submit": "ts-node scripts/zkverify/02-submit-to-zkverify.ts",
+    "zkverify:get-vkey-hash": "ts-node scripts/zkverify/02b-get-vkey-hash.ts",
+    "zkverify:deploy": "hardhat run scripts/zkverify/03-deploy-verifier.ts --network sepolia",
+    "zkverify:verify-on-chain": "hardhat run scripts/zkverify/04-verify-on-chain.ts --network sepolia"
+  },
+  "dependencies": {
+    "circomlib": "^2.0.5",
+    "circomlibjs": "^0.1.7",
+    "dotenv": "^16.4.5",
+    "ethers": "^6.13.2",
+    "zkverifyjs": "^2.1.0"
+  },
+  "devDependencies": {
+    "@nomicfoundation/hardhat-toolbox": "^5.0.0",
+    "hardhat": "^2.3.3",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.4.5"
+  }
+}
