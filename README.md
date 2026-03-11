@@ -214,4 +214,10 @@ This allows applications to integrate zero-knowledge proofs without exposing use
 
 ---
 
-MIT — crafted by thomas @ [awareo.io](https://awareo.io)
+## License
+
+MIT
+
+---
+
+crafted by [thomas](https://medium.com/@thomasbln) @ [awareo.io](https://awareo.io)
