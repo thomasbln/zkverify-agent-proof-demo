@@ -163,6 +163,20 @@ npm run verify
 
 After successful verification: `verified[signer] = true`
 
+### Demo Output
+
+**1. Submit proof to zkVerify Volta**
+
+![npm run submit](images/npm_run_submit.png)
+
+**2. Confirm VKey hash**
+
+![npm run zkverify:get-vkey-hash](images/npm_run%20zkverify_get-vkey-hash.png)
+
+**3. On-chain verification**
+
+![npm run verify](images/npm_run_verify.png)
+
 ---
 
 ## Repository Structure
