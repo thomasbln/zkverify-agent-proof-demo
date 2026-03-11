@@ -89,15 +89,43 @@ zkverify-agent-proof-demo/
 
 ---
 
-## Setup
+## Deployed Contract
+
+The verifier contract is deployed and verified on Sepolia with **18 successful on-chain proof verifications**.
+
+| | |
+|---|---|
+| **Contract** | [`0xF1F86d977e787b895D059C65dE649AeF9703902f`](https://sepolia.etherscan.io/address/0xF1F86d977e787b895D059C65dE649AeF9703902f) |
+| **VKey Hash** | `0x8aead396c3c6ba98d0fc38d041ed8e744e71957415571ca5990c72c7b4b7e6cf` |
+| **Network** | Ethereum Sepolia |
+| **Source** | Verified on Etherscan (Solidity 0.8.24) |
+
+> No need to redeploy unless you modify the circuit or contract logic. The existing contract and VKey hash work out of the box.
+
+---
+
+## Quick Demo
 
 ```bash
 npm install
 cp .env.example .env
-# Fill in your seed phrase, private key, and RPC URL
+# Fill in ZKVERIFY_SEED_PHRASE and TESTNET_PRIVATE_KEY
 ```
 
-See `.env.example` for required environment variables.
+Then run in sequence:
+
+```bash
+# 1. Submit proof to zkVerify Volta and wait for aggregation
+npm run zkverify:submit
+
+# 2. Confirm the VKey hash matches the deployed contract
+npm run zkverify:get-vkey-hash
+
+# 3. Verify proof inclusion on-chain → verified[signer] = true
+npm run zkverify:verify-on-chain
+```
+
+See `.env.example` for all required environment variables.
 
 ---
 
