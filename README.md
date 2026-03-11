@@ -7,7 +7,7 @@ As agentic systems become more autonomous, software increasingly triggers action
 Instead of trusting that the correct agent performs these actions, a system could require a **cryptographic proof of authorization**.
 
 ```
-Agent
+Agent (user secret)
  │
  ▼
 Circom Circuit
@@ -18,15 +18,24 @@ Groth16 Proof (snarkjs)
  ▼
 zkVerify Volta
  │
+ │  aggregation
  ▼
-Aggregation (Merkle Tree)
+Merkle Tree
  │
  ▼
 Ethereum Sepolia
  │
  ▼
-Authorized action executed
+zkVerify Proxy Contract
+ │
+ ▼
+ZkVerifyTest.sol
+ │
+ ▼
+verified[agent] = true
 ```
+
+Instead of verifying every proof individually on-chain, zkVerify aggregates multiple proofs into a Merkle tree. The smart contract verifies the aggregated proof and reconstructs the leaf belonging to the submitted proof.
 
 ---
 
@@ -153,6 +162,16 @@ zkverify-agent-proof-demo/
 ├── package.json
 └── tsconfig.json
 ```
+
+---
+
+## Real World Integration
+
+In production, proof generation runs server-side as part of the application backend.
+
+Users never interact with the blockchain directly. The application submits proofs to zkVerify and performs on-chain verification when required.
+
+This demo shows how zero-knowledge proofs can be integrated into existing applications without requiring users to interact with blockchain infrastructure directly.
 
 ---
 

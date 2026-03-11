@@ -9,7 +9,16 @@ contract ZkVerifyTest {
     bytes32 public constant VERSION_HASH =
         sha256(abi.encodePacked(""));
 
+    // zkVerify proxy contract on Ethereum Sepolia
+    // used to verify aggregated zk proofs submitted to zkVerify Volta:
+    //   proof submitted to zkVerify Volta
+    //     → aggregated into a Merkle tree
+    //     → Merkle root posted on-chain
+    //     → this contract verifies leaf inclusion via the proxy
     address public immutable zkVerify;
+
+    // verification key hash — uniquely identifies the Circom circuit
+    // must match the vkey used when submitting the proof to zkVerify
     bytes32 public immutable vkey;
 
     mapping(address => bool) public verified;
