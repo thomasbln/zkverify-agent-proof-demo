@@ -2,9 +2,28 @@
 
 Minimal example exploring how automated agents can prove authorization using zero-knowledge proofs and zkVerify.
 
-As agentic systems become more autonomous, software increasingly triggers actions such as publishing content, executing workflows, or interacting with smart contracts.
+As software systems become increasingly agentic, autonomous agents start executing real actions such as:
 
-Instead of trusting that the correct agent performs these actions, a system could require a **cryptographic proof of authorization**.
+- publishing content
+- triggering workflows
+- interacting with smart contracts
+
+This raises a fundamental question:
+
+**How can a system verify that an agent is actually allowed to perform an action?**
+
+Today this is usually handled through API keys, roles, or service identities.
+However, these mechanisms rely on trust in the agent's identity.
+
+Instead, a system could require a **cryptographic proof of authorization**.
+
+This repository demonstrates a minimal pattern where an agent proves it belongs to an authorized set without revealing its identity or credentials, using zero-knowledge proofs and zkVerify.
+
+---
+
+## Concept
+
+The example shows how an agent can generate a proof and have it verified through zkVerify aggregation before a smart contract accepts the action.
 
 ```
 Agent (user secret)
@@ -35,21 +54,27 @@ ZkVerifyTest.sol
 verified[agent] = true
 ```
 
-Instead of verifying every proof individually on-chain, zkVerify aggregates multiple proofs into a Merkle tree. The smart contract verifies the aggregated proof and reconstructs the leaf belonging to the submitted proof.
+Instead of verifying every proof individually on-chain, zkVerify aggregates multiple proofs into a Merkle tree.
+
+The smart contract only verifies that a proof belongs to this aggregated result, significantly reducing the on-chain verification workload.
 
 ---
 
 ## Example Use Case
 
-In automated content pipelines, multiple agents may participate in the process:
+Consider an automated content pipeline:
 
 ```
 Research Agent → Writing Agent → Editing Agent → Publishing Agent
 ```
 
-The publishing step is critical. Instead of trusting the agent identity, the publishing service could require a **proof that the agent belongs to the authorized publisher set**.
+The final publishing step is critical.
 
-This demo explores how such an authorization proof could be generated and verified using zkVerify.
+Instead of trusting the agent identity, the system could require a proof that the agent belongs to the authorized publisher set.
+
+The publishing action would only execute if the proof is valid.
+
+This repository demonstrates a simplified version of this pattern using zkVerify.
 
 ---
 
@@ -117,10 +142,13 @@ Faucet: [sepoliafaucet.com](https://sepoliafaucet.com)
 ```bash
 npm install
 cp .env.example .env
-# Fill in ZKVERIFY_SEED_PHRASE and TESTNET_PRIVATE_KEY
 ```
 
-Then run in sequence:
+Fill in:
+- `ZKVERIFY_SEED_PHRASE`
+- `TESTNET_PRIVATE_KEY`
+
+Then run:
 
 ```bash
 # 1. Submit proof to zkVerify Volta and wait for aggregation
@@ -129,11 +157,11 @@ npm run submit
 # 2. Confirm the VKey hash matches the deployed contract
 npm run zkverify:get-vkey-hash
 
-# 3. Verify proof inclusion on-chain → verified[signer] = true
+# 3. Verify proof inclusion on-chain
 npm run verify
 ```
 
-See `.env.example` for all required environment variables.
+After successful verification: `verified[signer] = true`
 
 ---
 
@@ -167,11 +195,14 @@ zkverify-agent-proof-demo/
 
 ## Real World Integration
 
-In production, proof generation runs server-side as part of the application backend.
+In production environments, proof generation typically runs server-side.
 
-Users never interact with the blockchain directly. The application submits proofs to zkVerify and performs on-chain verification when required.
+Users interact with the application normally while the backend:
+- generates the proof
+- submits it to zkVerify
+- verifies inclusion on-chain when required
 
-This demo shows how zero-knowledge proofs can be integrated into existing applications without requiring users to interact with blockchain infrastructure directly.
+This allows applications to integrate zero-knowledge proofs without exposing users to blockchain complexity.
 
 ---
 
@@ -183,5 +214,4 @@ This demo shows how zero-knowledge proofs can be integrated into existing applic
 
 ---
 
-Thomas Rehmer  
-Building systems at [awareo](https://awareo.io)
+MIT — crafted by thomas @ [awareo.io](https://awareo.io)
