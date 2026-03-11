@@ -163,6 +163,8 @@ npm run verify
 
 After successful verification: `verified[signer] = true`
 
+> `proof.json`, `public.json`, and `verification_key.json` are included in the repo so you can run the demo without compiling the circuit locally. These are public proof artifacts — not secrets.
+
 ### Demo Output
 
 **1. Submit proof to zkVerify Volta**
