@@ -242,8 +242,6 @@ This allows applications to integrate zero-knowledge proofs without exposing use
 
 [OpenClaw Marketing Agent](https://github.com/thomasbln/openclaw-marketing-agent)
 
-[GraphRAG Legal Demo](https://github.com/thomasbln/graphrag-legal-demo)
-
 ---
 
 ## License
