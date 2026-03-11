@@ -60,6 +60,22 @@ The smart contract only verifies that a proof belongs to this aggregated result,
 
 ---
 
+## What This Proof Shows
+
+The circuit proves that an agent knows a secret value that hashes to a public commitment.
+
+```
+Agent knows:  secret
+Public:       hash = Poseidon(secret)
+
+Proof:  "I know secret such that Poseidon(secret) = hash"
+        — without revealing secret
+```
+
+This allows an agent to prove authorization without revealing the underlying secret or credentials. The verifying system only learns that the proof is valid — nothing else.
+
+---
+
 ## Example Use Case
 
 Consider an automated content pipeline:
