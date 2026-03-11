@@ -6,27 +6,25 @@ As agentic systems become more autonomous, software increasingly triggers action
 
 Instead of trusting that the correct agent performs these actions, a system could require a **cryptographic proof of authorization**.
 
-This repository demonstrates a simple pattern:
-
-```
-Agent → generates a proof of authorization → proof verified via zkVerify → action executed
-```
-
----
-
-## Architecture
-
 ```
 Agent
-↓
-Generate ZK Proof (Circom + snarkjs)
-↓
-Submit proof to zkVerify
-↓
-zkVerify aggregates verified proofs
-↓
-Smart contract verifies inclusion
-↓
+ │
+ ▼
+Circom Circuit
+ │
+ ▼
+Groth16 Proof (snarkjs)
+ │
+ ▼
+zkVerify Volta
+ │
+ ▼
+Aggregation (Merkle Tree)
+ │
+ ▼
+Ethereum Sepolia
+ │
+ ▼
 Authorized action executed
 ```
 
@@ -37,13 +35,7 @@ Authorized action executed
 In automated content pipelines, multiple agents may participate in the process:
 
 ```
-Research Agent
-↓
-Writing Agent
-↓
-Editing Agent
-↓
-Publishing Agent
+Research Agent → Writing Agent → Editing Agent → Publishing Agent
 ```
 
 The publishing step is critical. Instead of trusting the agent identity, the publishing service could require a **proof that the agent belongs to the authorized publisher set**.
@@ -54,38 +46,16 @@ This demo explores how such an authorization proof could be generated and verifi
 
 ## Stack
 
-- [Circom](https://docs.circom.io)
-- [snarkjs](https://github.com/iden3/snarkjs)
-- [zkVerify](https://zkverify.io)
-- [Solidity](https://soliditylang.org) / [Hardhat](https://hardhat.org)
-
----
-
-## Repository Structure
-
-```
-zkverify-agent-proof-demo/
-├── circuits/
-│   └── secret-proof/
-│       ├── circuit.circom              # Circom authorization circuit
-│       └── input.json                  # Example input
-├── contracts/
-│   └── zkverify/
-│       ├── interfaces/
-│       │   └── IVerifyProofAggregation.sol
-│       └── ZkVerifyTest.sol            # On-chain verifier
-├── scripts/
-│   └── zkverify/
-│       ├── compute-hash.js             # Poseidon hash helper
-│       ├── 02-submit-to-zkverify.ts    # Submit proof to zkVerify Volta
-│       ├── 02b-get-vkey-hash.ts        # Get VKey hash
-│       ├── 03-deploy-verifier.ts       # Deploy contract to Sepolia
-│       └── 04-verify-on-chain.ts       # On-chain verification
-├── .env.example
-├── hardhat.config.ts
-├── package.json
-└── tsconfig.json
-```
+| Component | Technology |
+|-----------|-----------|
+| Circuit Language | Circom 2.1.6 |
+| Proof System | Groth16 (bn128 curve) |
+| Proving Library | snarkjs |
+| Hash Function | Poseidon |
+| zkVerify SDK | zkverifyjs |
+| Smart Contracts | Solidity 0.8.24 (Hardhat) |
+| Target Chain | Ethereum Sepolia |
+| zkVerify Network | Volta Testnet |
 
 ---
 
@@ -155,6 +125,34 @@ npm run zkverify:verify-on-chain
 ```
 
 See `.env.example` for all required environment variables.
+
+---
+
+## Repository Structure
+
+```
+zkverify-agent-proof-demo/
+├── circuits/
+│   └── secret-proof/
+│       ├── circuit.circom              # Circom authorization circuit
+│       └── input.json                  # Example input
+├── contracts/
+│   └── zkverify/
+│       ├── interfaces/
+│       │   └── IVerifyProofAggregation.sol
+│       └── ZkVerifyTest.sol            # On-chain verifier
+├── scripts/
+│   └── zkverify/
+│       ├── compute-hash.js             # Poseidon hash helper
+│       ├── 02-submit-to-zkverify.ts    # Submit proof to zkVerify Volta
+│       ├── 02b-get-vkey-hash.ts        # Get VKey hash
+│       ├── 03-deploy-verifier.ts       # Deploy contract to Sepolia
+│       └── 04-verify-on-chain.ts       # On-chain verification
+├── .env.example
+├── hardhat.config.ts
+├── package.json
+└── tsconfig.json
+```
 
 ---
 
