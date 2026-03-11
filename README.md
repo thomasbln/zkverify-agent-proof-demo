@@ -104,6 +104,35 @@ The verifier contract is deployed and verified on Sepolia with **18 successful o
 
 ---
 
+## Requirements
+
+To run the demo you need a wallet with testnet tokens.
+
+> ⚠️ Use a test wallet only. Never commit your private key.
+
+### 1. Wallet
+
+Add your wallet credentials to the `.env` file:
+
+```
+TESTNET_PRIVATE_KEY=0x...         # Sepolia transactions
+ZKVERIFY_SEED_PHRASE="word1 ..."  # zkVerify Volta submissions
+```
+
+### 2. zkVerify Volta Tokens (tVFY)
+
+Required to submit proofs to zkVerify.
+
+Faucet: [faucy.com/zkverify-volta](https://www.faucy.com/zkverify-volta)
+
+### 3. Sepolia ETH
+
+Required for on-chain verification transactions.
+
+Faucet: [sepoliafaucet.com](https://sepoliafaucet.com)
+
+---
+
 ## Quick Demo
 
 ```bash
