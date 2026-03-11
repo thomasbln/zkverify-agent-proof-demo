@@ -6,6 +6,9 @@
   "license": "MIT",
   "scripts": {
     "compute-hash": "node scripts/zkverify/compute-hash.js",
+    "prove": "echo 'See circuits/secret-proof/ — run circom + snarkjs locally (requires Circom installed)'",
+    "submit": "ts-node scripts/zkverify/02-submit-to-zkverify.ts",
+    "verify": "hardhat run scripts/zkverify/04-verify-on-chain.ts --network sepolia",
     "zkverify:submit": "ts-node scripts/zkverify/02-submit-to-zkverify.ts",
     "zkverify:get-vkey-hash": "ts-node scripts/zkverify/02b-get-vkey-hash.ts",
     "zkverify:deploy": "hardhat run scripts/zkverify/03-deploy-verifier.ts --network sepolia",

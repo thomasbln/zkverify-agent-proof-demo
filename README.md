@@ -124,13 +124,13 @@ Then run in sequence:
 
 ```bash
 # 1. Submit proof to zkVerify Volta and wait for aggregation
-npm run zkverify:submit
+npm run submit
 
 # 2. Confirm the VKey hash matches the deployed contract
 npm run zkverify:get-vkey-hash
 
 # 3. Verify proof inclusion on-chain → verified[signer] = true
-npm run zkverify:verify-on-chain
+npm run verify
 ```
 
 See `.env.example` for all required environment variables.
