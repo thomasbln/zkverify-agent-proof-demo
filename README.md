@@ -238,7 +238,7 @@ This allows applications to integrate zero-knowledge proofs without exposing use
 
 ---
 
-## Related Experiments
+## Related Projects
 
 [OpenClaw Marketing Agent](https://github.com/thomasbln/openclaw-marketing-agent)
 
